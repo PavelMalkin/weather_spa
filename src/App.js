@@ -34,7 +34,8 @@ function App() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        dispatch(getCurrentWeatherByCoord([ position.coords.latitude , position.coords.longitude]))
+                        dispatch(getCurrentWeatherByCoord([ position.coords.latitude , position.coords.longitude]));
+                        // dispatch(getCityName([ position.coords.latitude , position.coords.longitude]))
                     },
                     () => {
                         console.log('location error')

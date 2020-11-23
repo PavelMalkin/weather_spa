@@ -27,9 +27,9 @@ export default function Main() {
 
     const Weather = (weather.hasFetched) ? (<Card>
         <CardContent>
-            <Typography align='center' variant='h5'>{Math.floor(weather.currentWeather.main.temp - 273.15, 1)} C</Typography>
-            <Typography align='center' variant='h4'>{weather.currentWeather.name}, {weather.currentWeather.sys.country}</Typography>
-            <Typography align='center' variant='h6'>Wind {weather.currentWeather.wind.speed} meters per second</Typography>
+            <Typography align='center' variant='h5'>{Math.floor(weather.currentWeather.list[0].main.temp - 273.15, 1)} C</Typography>
+            <Typography align='center' variant='h4'>{weather.currentWeather.list[0].name}, {weather.currentWeather.list[0].sys.country}</Typography>
+            <Typography align='center' variant='h6'>Wind {weather.currentWeather.list[0].wind.speed} meters per second</Typography>
         </CardContent>
         </Card>)
         : null;
