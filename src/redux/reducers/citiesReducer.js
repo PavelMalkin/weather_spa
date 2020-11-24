@@ -1,5 +1,6 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getCityName, getCurrentWeather} from "../appThunk";
+import {saveCity} from "../actions/citiesActions";
 
 
 const initialState = {
@@ -24,11 +25,11 @@ const citiesReducer = createReducer(initialState, {
         return state;
     },
 
-    'SAVE_CITY': (state) => {
+    [saveCity]: (state, action) => {
+        console.log('saveCity fired')
+        state.savedCities = [...state.savedCities, ...[action.payload]]
         return state;
     },
-    'SET_CITY': (state, action) => {
-    }
 
 })
 

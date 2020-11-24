@@ -1,6 +1,6 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getForecast} from "../appThunk";
-import {setForecast} from "../actions/weatherActions";
+import {setForecast, dropForecastWeather} from "../actions/weatherActions";
 
 
 const initialState = {
@@ -29,6 +29,12 @@ const forecastReducer = createReducer(initialState, {
     },
     [setForecast] : (state, action) => {
         state.forecastPeriod = action.payload
+        return state;
+    },
+    [dropForecastWeather]: (state) => {
+        state.isFetching = false;
+        state.hasFetched = false;
+        state.forecastWeather = {};
         return state;
     }
 })

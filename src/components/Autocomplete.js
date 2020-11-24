@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle';
+import {dropForecastWeather, dropActualWeather} from "../redux/actions/weatherActions";
 
 function loadScript(src, position, id) {
     if (!position) {
@@ -61,7 +62,10 @@ export default function GoogleMaps() {
 
     useEffect(()=> {
         if (value) {
-            dispatch(setCurrentCity(value))
+            dispatch(setCurrentCity(value.structured_formatting.main_text));
+            dispatch(dropActualWeather());
+            dispatch(dropForecastWeather());
+            setValue('');
         }
     },[value])
 
@@ -81,7 +85,6 @@ export default function GoogleMaps() {
         }
 
         fetch({ input: inputValue }, (results) => {
-            console.log('result', results)
             results = results.filter( result => result.types.some(type => type ==="locality"))
             if (active) {
                 let newOptions = [];
@@ -107,7 +110,7 @@ export default function GoogleMaps() {
         <Autocomplete
             id="google-map-demo"
             style={{ width: 300 }}
-            getOptionLabel={(option) => { console.log('option',option);   return (typeof option === 'string' ? option : option.description)} }
+            getOptionLabel={(option) => typeof option === 'string' ? option : option.description }
             filterOptions={(x) => x}
             options={options}
             autoComplete

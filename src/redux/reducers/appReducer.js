@@ -1,5 +1,6 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getCurrentWeather} from "../appThunk";
+import {dropActualWeather} from "../actions/weatherActions"
 
 
 
@@ -24,6 +25,12 @@ const appReducer = createReducer(initialState, {
     state.isFetching = false;
     state.hasFetched = true;
     state.currentWeather =  action.payload;
+    return state;
+  },
+  [dropActualWeather]: (state) => {
+    state.isFetching = false;
+    state.hasFetched = false;
+    state.currentWeather =  {};
     return state;
   }
 })

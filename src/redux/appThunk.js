@@ -9,12 +9,12 @@ import {fetchApi} from './request'
 const cors = 'https://cors-anywhere.herokuapp.com/';
 
 export const getForecast = createAsyncThunk( "weather/getForecast", (location) =>{
-    const locArg = location[0] + ',' + location[1];
+    const locArg = (location.length > 1)? (location[0] + ',' + location[1]) : location[0];
     return fetchApi(`${cors}http://api.openweathermap.org/data/2.5/forecast?q=${locArg}&cnt=7&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
 })
 
 export const getCurrentWeather = createAsyncThunk( "weather/getCurrentWeather", (location) =>{
-    const locArg = location[0] + ',' + location[1];
+    const locArg = (location.length > 1)? (location[0] + ',' + location[1]) : location[0];
     return fetchApi(`${cors}http://api.openweathermap.org/data/2.5/weather?q=${locArg}&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
 })
 
@@ -26,7 +26,7 @@ export const getCityName = createAsyncThunk('location/getCityName', (latLng) => 
     return fetchApi(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
 })
 
-export const getCurrentWeatherByCoord = createAsyncThunk( "weather/getCurrentWeather", (location) =>{
+export const getCurrentWeatherByCoord = createAsyncThunk( "weather/getCurrentWeatherByCoord", (location) =>{
     const locArg = location[0] + '&lon=' + location[1];
     return fetchApi(`${cors}http://api.openweathermap.org/data/2.5/find?lat=${locArg}&cnt=3&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
 })

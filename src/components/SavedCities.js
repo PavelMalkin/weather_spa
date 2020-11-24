@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {setCurrentCity} from "../redux/actions/citiesActions";
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {Button} from "@material-ui/core";
 
@@ -16,24 +16,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SavedCities  () {
+export default function SavedCities  (props) {
     const classes = useStyles();
-    const cities = useSelector(store => store.cities.savedCities)
+    const cities = useSelector(store => store.cities.savedCities);
+    const dispatch = useDispatch();
 
-    const svCities = cities.map( (city, index) => {
-        return (
-            <Grid item xs={2} key={index+100}>
-                <Button className={classes.button}>{city[0]}</Button>
-            </Grid>
-        )
-    })
+
+    // const svCities = cities.map( (city, index) => {
+    //     return (
+    //         <Grid item key={index+100}>
+    //             <Button className={classes.button}
+    //                     onclick={ console.log('city',city[0])}
+    //             >{city[0]}</Button>
+    //         </Grid>
+    //     )
+    // })
 
     return (
-        <div className={classes.root}>
-            <Grid container spacing={3}>
-                {svCities}
-            </Grid>
-        </div>
+        <Button className={classes.button}
+                onClick={() => console.log('city',props)}
+        >{props[0]}</Button>
     );
 };
 

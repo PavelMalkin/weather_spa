@@ -7,6 +7,7 @@ import {CardContent, Grid, Typography} from "@material-ui/core";
 
 export function Forecast(props) {
 
+
     const oneDayForecast = props.forecastWeather.list[props.forecastPeriod - 1]
 
     const forecastCards = (props.forecastPeriod === 7) ? props.forecastWeather.list.map((day, index) => {
@@ -38,10 +39,29 @@ export function Forecast(props) {
 
     return (
         <div>
-            <Grid container spacing={2} wrap="wrap" justify='center'>
-                {forecastCards}
+            <Grid container spacing={2} wrap="wrap" direction="row"
+                  justify="space-between"
+                  alignItems="flex-start">
+                <Grid item>
+                    <Grid container spacing={2} justify="space-between"
+                          alignItems="flex-start">
+                        <Typography>
+                            {Moment().add(props.forecastPeriod - 1, 'days').calendar(null,{
+                                lastDay : '[Yesterday]',
+                                sameDay : '[Today]',
+                                nextDay : '[Tomorrow]',
+                                lastWeek : '[last] dddd',
+                                nextWeek : 'dddd',
+                                sameElse : 'L'
+                            })}
+                        </Typography>
+                        {forecastCards}
+                    </Grid>
+                </Grid>
+                <Grid item xs={8}>
+                    {(props.forecastPeriod < 7) ? <Gmap {...props.actualLocation}/> : null}
+                </Grid>
             </Grid>
-            <Gmap/>
         </div>
     );
 };

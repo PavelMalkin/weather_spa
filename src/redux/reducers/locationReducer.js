@@ -23,17 +23,16 @@ const locationReducer = createReducer(initialState, {
     [getCurrentWeatherByCoord.fulfilled]: (state, action) => {
         state.isFetching = false;
         state.hasFetched = true;
-        // console.log('payload in location', action.payload.list[0]);
-        // dispatch(setCurrentWeather(action.payload.list[0]))
-
         state.actualLocation = [
             action.payload.list[0].name,
             action.payload.list[0].sys.country,
             action.payload.list[0].coord
         ]
+
         return state;
     },
     [setCurrentCity] : (state, action) => {
+        console.log('city[0] fired')
         state.actualLocation = [action.payload];
         return state;
     }
