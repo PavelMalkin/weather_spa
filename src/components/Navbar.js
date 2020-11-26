@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import Autocomplete from './Autocomplete';
-import {getCurrentWeather} from "../../../travel_factory/src/redux/appThunk";
+import {getCurrentWeather} from "../redux/appThunk";
 import {setForecast} from "../redux/actions/weatherActions";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';

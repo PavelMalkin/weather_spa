@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getForecast} from "../../../../travel_factory/src/redux/appThunk";
+import {getForecast} from "../appThunk";
 import {setForecast, dropForecastWeather} from "../actions/weatherActions";
 
 
