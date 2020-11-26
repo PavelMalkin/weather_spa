@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getCurrentWeather} from '../redux/appThunk'
+import {getCurrentWeather} from '../../../travel_factory/src/redux/appThunk'
 import {saveCity} from "../redux/actions/citiesActions";
 import {makeStyles} from '@material-ui/core/styles';
 import Container from "@material-ui/core/Container";

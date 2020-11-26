@@ -8,11 +8,20 @@ import {useSelector} from "react-redux";
 
 
 export default function Gmap(props) {
-    const weather = useSelector(store => store.currentWeather.currentWeather )
+    const currentWeather = useSelector(store => store.currentWeather )
+    const [weather, setWeather] = useState({"coord": {lon: 34.99, lat: 32.82}});
 
-    console.log(weather)
-    const weatherDescription = `${Math.floor(weather.main.temp - 273.15)} °C,  ` +
-    `Wind ${weather.wind.speed} meters per second`
+    useEffect(() => {
+        if (currentWeather.hasFetched) {
+            setWeather(currentWeather.currentWeather)
+        }
+    }, [currentWeather])
+
+    console.log('weahter',weather)
+
+
+    const weatherDescription = (weather.main)?  (`${Math.floor(weather.main.temp - 273.15)} °C,  ` +
+    `Wind ${weather.wind.speed} meters per second`) : null;
 
     const AnyReactComponent = ({text}) => (
         <div>
@@ -39,7 +48,7 @@ export default function Gmap(props) {
                 <AnyReactComponent
                     lat={weather.coord.lat}
                     lng={weather.coord.lon}
-                    text={props[0]}
+                    // text={props[0]}
                 />
 
 

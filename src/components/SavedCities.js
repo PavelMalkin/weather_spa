@@ -4,6 +4,7 @@ import {setCurrentCity} from "../redux/actions/citiesActions";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {Button} from "@material-ui/core";
+import {dropActualWeather, dropForecastWeather} from "../redux/actions/weatherActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,26 +17,35 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SavedCities  (props) {
+export default function SavedCities  () {
     const classes = useStyles();
     const cities = useSelector(store => store.cities.savedCities);
     const dispatch = useDispatch();
 
+    const handleClick = (city) => {
+        dispatch(setCurrentCity(city));
+        dispatch(dropActualWeather());
+        dispatch(dropForecastWeather());
+    }
 
-    // const svCities = cities.map( (city, index) => {
-    //     return (
-    //         <Grid item key={index+100}>
-    //             <Button className={classes.button}
-    //                     onclick={ console.log('city',city[0])}
-    //             >{city[0]}</Button>
-    //         </Grid>
-    //     )
-    // })
+
+    const svCities = cities.map( (city, index) => {
+        return (
+            <Grid item key={index+100}>
+                <Button className={classes.button}
+                        onClick={() => handleClick(city)}
+                >{city[0]}</Button>
+            </Grid>
+        )
+    })
 
     return (
-        <Button className={classes.button}
-                onClick={() => console.log('city',props)}
-        >{props[0]}</Button>
+            <Grid container  spacing={2}
+                  wrap="wrap" direction="row"
+                  justify="space-around"
+                  alignItems="flex-start">
+                {svCities}
+            </Grid>
     );
 };
 

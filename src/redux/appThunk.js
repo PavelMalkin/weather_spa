@@ -8,9 +8,8 @@ import {fetchApi} from './request'
 
 const cors = 'https://cors-anywhere.herokuapp.com/';
 
-export const getForecast = createAsyncThunk( "weather/getForecast", (location) =>{
-    const locArg = (location.length > 1)? (location[0] + ',' + location[1]) : location[0];
-    return fetchApi(`${cors}http://api.openweathermap.org/data/2.5/forecast?q=${locArg}&cnt=7&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
+export const getContactCoordinates = createAsyncThunk( "contacts/getContacts", (address) =>{
+    return fetchApi(`https://maps.googleapis.com/maps/api/geocode/json?address=paris&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
 })
 
 export const getCurrentWeather = createAsyncThunk( "weather/getCurrentWeather", (location) =>{

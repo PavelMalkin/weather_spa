@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getCityName, getCurrentWeatherByCoord} from "../appThunk";
+import {getCityName, getCurrentWeatherByCoord} from "../../../../travel_factory/src/redux/appThunk";
 import {setCurrentCity} from "../actions/citiesActions"
 
 
@@ -28,11 +28,9 @@ const locationReducer = createReducer(initialState, {
             action.payload.list[0].sys.country,
             action.payload.list[0].coord
         ]
-
         return state;
     },
     [setCurrentCity] : (state, action) => {
-        console.log('city[0] fired')
         state.actualLocation = [action.payload];
         return state;
     }

@@ -1,18 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {
-    getCurrentLocation,
-    getCurrentWeather,
-    getForecast,
-    getCityName,
-    getCurrentWeatherByCoord
-} from './redux/appThunk'
+import {getCurrentLocation, getCurrentWeather, getForecast, getCityName, getCurrentWeatherByCoord} from './redux/appThunk'
 import Navbar from './components/Navbar'
 import SavedCities from "./components/SavedCities";
 import Main from "./components/Main";
 import {Forecast} from "./components/Forecast";
 import {makeStyles} from '@material-ui/core/styles';
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,8 +25,7 @@ function App() {
     const dispatch = useDispatch();
     const location = useSelector(store => store.location);
     const currentWeather = useSelector(store => store.currentWeather);
-    const forecast = useSelector(store => store.forecast);
-    const cities = useSelector(store => store.cities.savedCities);
+    const forecast = useSelector(store => store.forecast)
 
 
     useEffect(() => {
@@ -42,7 +34,7 @@ function App() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        dispatch(getCurrentWeatherByCoord([position.coords.latitude, position.coords.longitude]));
+                        dispatch(getCurrentWeatherByCoord([ position.coords.latitude , position.coords.longitude]));
                         // dispatch(getCityName([ position.coords.latitude , position.coords.longitude]))
                     },
                     () => {
@@ -104,7 +96,7 @@ function App() {
     // }, [position])
 
     useEffect(() => {
-        if (!currentWeather.hasFetched && !currentWeather.isFetchingError && !currentWeather.isFetching && location.hasFetched) {
+        if ( !currentWeather.hasFetched && !currentWeather.isFetchingError && !currentWeather.isFetching && location.hasFetched) {
             dispatch(getCurrentWeather(location.actualLocation))
         }
     }, [currentWeather, location]);
@@ -115,14 +107,6 @@ function App() {
         }
     }, [forecast, location]);
 
-    const forecastComponent = (forecast.hasFetched) ? (
-        <Forecast {...forecast} {...location} />
-    ) : null;
-
-    const savedCities = (cities)?  cities.map( (city, index) => {
-        return (<SavedCities key={index + 100} {...city}/>)
-        }
-    ) : null;
 
 
     return (
@@ -130,13 +114,8 @@ function App() {
             <div className={classes.root}>
                 <Navbar {...location}/>
                 <Main {...location}/>
-                {forecastComponent}
-                <Grid container spacing={2}
-                      wrap="wrap" direction="row"
-                      justify="space-around"
-                      alignItems="flex-start">
-                    {savedCities}
-                </Grid>
+                <Forecast {...forecast} />
+                <SavedCities/>
             </div>
         </div>
     );
