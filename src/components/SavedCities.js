@@ -34,7 +34,7 @@ export default function SavedCities  () {
             <Grid item key={index+100}>
                 <Button className={classes.button}
                         onClick={() => handleClick(city)}
-                >{city[0]}</Button>
+                >{city.city}</Button>
             </Grid>
         )
     })

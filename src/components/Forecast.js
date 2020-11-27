@@ -7,7 +7,6 @@ import {ForecastItems} from "./elementary/ForecastItems";
 
 
 export function Forecast(props) {
-    console.log(props)
 
     const forecastItems = (props.hasFetched) ? (
         <ForecastItems {...props}/>
@@ -21,7 +20,7 @@ export function Forecast(props) {
                   alignItems="flex-start">
 
                 <Grid item>
-                    {forecastItems}
+                    {(props.forecastPeriod < 7) ? null : forecastItems }
                 </Grid>
 
                 <Grid item xs={8}>

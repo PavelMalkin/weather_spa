@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {getCurrentLocation, getCurrentWeather, getForecast, getCityName, getCurrentWeatherByCoord} from './redux/appThunk'
 import Navbar from './components/Navbar'
@@ -25,17 +25,35 @@ function App() {
     const dispatch = useDispatch();
     const location = useSelector(store => store.location);
     const currentWeather = useSelector(store => store.currentWeather);
-    const forecast = useSelector(store => store.forecast)
+    const forecast = useSelector(store => store.forecast);
 
+    // const getLocation = useCallback(()=> {
+    //     if (!location.hasFetched && !location.isFetching) {
+    //         if (navigator.geolocation) {
+    //             navigator.geolocation.getCurrentPosition(
+    //                 (position) => {
+    //                     console.log('request from callback')
+    //                     dispatch(getCurrentWeatherByCoord([position.coords.latitude, position.coords.longitude]));
+    //                     // dispatch(getCityName([ position.coords.latitude , position.coords.longitude]))
+    //                 },
+    //                 () => {
+    //                     console.log('location error')
+    //                 }
+    //             );
+    //         } else {
+    //             // Browser doesn't support Geolocation
+    //             console.log('Browser doesnt support Geolocation')
+    //         }
+    //     }
+    // },[location])
+    // getLocation();
 
     useEffect(() => {
         if (!location.hasFetched && !location.isFetching) {
-            // dispatch(getCurrentLocation())
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         dispatch(getCurrentWeatherByCoord([ position.coords.latitude , position.coords.longitude]));
-                        // dispatch(getCityName([ position.coords.latitude , position.coords.longitude]))
                     },
                     () => {
                         console.log('location error')

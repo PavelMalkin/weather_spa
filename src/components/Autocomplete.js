@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle';
 import {dropForecastWeather, dropActualWeather} from "../redux/actions/weatherActions";
+import {getCityCoordinatesByName} from '../redux/appThunk'
 
 function loadScript(src, position, id) {
     if (!position) {
@@ -62,7 +63,8 @@ export default function GoogleMaps() {
 
     useEffect(()=> {
         if (value) {
-            dispatch(setCurrentCity(value.structured_formatting.main_text));
+            dispatch(getCityCoordinatesByName(value.description));
+            // dispatch(setCurrentCity(value.structured_formatting.main_text));
             dispatch(dropActualWeather());
             dispatch(dropForecastWeather());
             setValue('');
@@ -85,7 +87,9 @@ export default function GoogleMaps() {
         }
 
         fetch({ input: inputValue }, (results) => {
+            if (results != null) {
             results = results.filter( result => result.types.some(type => type ==="locality"))
+            }
             if (active) {
                 let newOptions = [];
 

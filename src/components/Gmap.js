@@ -17,32 +17,26 @@ export default function Gmap(props) {
         }
     }, [currentWeather])
 
-    console.log('weahter',weather)
-
 
     const weatherDescription = (weather.main)?  (`${Math.floor(weather.main.temp - 273.15)} °C,  ` +
     `Wind ${weather.wind.speed} meters per second`) : null;
 
-    const AnyReactComponent = ({text}) => (
+    const AnyReactComponent = ({text}) => (weatherDescription)? (
         <div>
             <Tooltip title={weatherDescription} placement="top">
                 <IconButton>
                     <RoomIcon color="secondary" fontSize="large" />
                 </IconButton>
             </Tooltip>
-        </div>);
+        </div>) : null;
 
 
     return (
         <div style={{height: '50vh', width: '100%'}}>
             <GoogleMapReact
-                bootstrapURLKeys={{key: process.env.REACT_APP_GOOGLE_API_KEY}}
-                defaultCenter={
-                    {
-                        lat: weather.coord.lat,
-                        lng: weather.coord.lon
-                    }}
                 defaultZoom={11}
+                center={{ lat: weather.coord.lat,
+                    lng: weather.coord.lon}}
             >
 
                 <AnyReactComponent

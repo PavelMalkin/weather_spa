@@ -3,10 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {getCurrentWeather} from "../redux/appThunk"
 import {saveCity} from "../redux/actions/citiesActions";
 import {makeStyles} from '@material-ui/core/styles';
-import Container from "@material-ui/core/Container";
 import Paper from '@material-ui/core/Paper';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Card from '@material-ui/core/Card';
 import {CardContent, Grid, IconButton, Typography} from "@material-ui/core";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
@@ -41,7 +38,7 @@ export default function Main(props) {
         : null;
 
     const handleButton = () => {
-        if (!savedCities.find(city => city[0] === props.actualLocation[0])) {
+        if (!savedCities.find(city => city.city === props.actualLocation.city)) {
         dispatch(saveCity(props.actualLocation))
         }
     }
@@ -53,7 +50,8 @@ export default function Main(props) {
                   direction="row"
                   justify="space-between"
                   alignItems="flex-start">
-                <Grid item></Grid>
+                <Grid item>
+                </Grid>
                 {Weather}
                 <Grid item>
                     <Grid container>

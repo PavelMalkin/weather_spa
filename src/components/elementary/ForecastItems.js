@@ -16,7 +16,7 @@ export function ForecastItems(props) {
                 <Card>
                     <CardContent>
                         <Typography align='center'
-                                    variant='subtitle2'>{Moment().add(index + 1, 'days').format('ddd, MMM DD')}</Typography>
+                                    variant='subtitle2'>{Moment.unix(day.dt).format('ddd, MMM DD HH:mm')}</Typography>
                         <Typography align='center'
                                     variant='subtitle2'>{Math.floor(day.main.temp - 273.15, 1)} C</Typography>
                         <Typography align='center' variant='caption'>Wind {day.wind.speed} m/s</Typography>

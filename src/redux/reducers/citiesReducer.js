@@ -5,7 +5,13 @@ import {saveCity} from "../actions/citiesActions";
 
 const initialState = {
     currentCity: '',
-    savedCities: [['Moscow', 'RU'], ['Barcelona','ES'], ['Haifa', 'IL'], ['New York', 'US'], ['Podolsk', 'RU']],
+    savedCities: [
+        {city:'Moscow',countryCode: 'RU', location:{} },
+        {city:'Barcelona',countryCode: 'ES', location:{} },
+        {city:'Haifa',countryCode: 'IL', location:{} },
+        {city:'New York',countryCode: 'US', location:{} },
+        {city:'Podolsk',countryCode: 'RU', location:{} },
+    ],
 };
 
 const citiesReducer = createReducer(initialState, {
@@ -26,7 +32,7 @@ const citiesReducer = createReducer(initialState, {
     },
 
     [saveCity]: (state, action) => {
-        console.log('saveCity fired')
+        console.log('saveCity fired', action.payload)
         state.savedCities = [...state.savedCities, ...[action.payload]]
         return state;
     },
