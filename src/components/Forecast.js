@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Gmap from "./Gmap";
-import Card from "@material-ui/core/Card";
 import Moment from 'moment';
 import {CardContent, Grid, Typography} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import {ForecastCard} from "./elementary/ForecastCard";
-import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,7 +15,7 @@ export function Forecast(props) {
     const classes = useStyles();
 
     const forecastItems = (props.hasFetched) ? (
-        props.weather.daily.map((day, index) => <ForecastCard key={index + 1000} {...day}/>)
+        props.weather.daily.map((day, index) => <ForecastCard key={index + 10000} {...day}/>)
     ) : null;
 
 
@@ -40,7 +38,6 @@ export function Forecast(props) {
 
     const typeForecast = (props.hasFetched && props.forecastPeriod < 7) ? (
         <Grid item>
-            {/*<Grid container spacing={2} direction='column' justify="flex-start">*/}
             <Grid item>
                 <Typography>
                     {Moment().add(props.forecastPeriod - 1, 'days').calendar(null, {
@@ -61,8 +58,10 @@ export function Forecast(props) {
                     Time Weather
                 </Typography>
             </Grid>
+            <div className='delimiter'>
+                <hr className="solid"/>
+            </div>
             {forecastHours}
-            {/*</Grid>*/}
         </Grid>
     ) : (
         <Grid item>
@@ -77,29 +76,6 @@ export function Forecast(props) {
               justify="space-between"
         >
             {typeForecast}
-            {/*<Grid item>*/}
-            {/*        <Grid item>Time Weather</Grid>*/}
-            {/*        <Grid item>00:00 6°C Wind 5.75 meters per second</Grid>*/}
-            {/*        <Grid item>06:00 5°C Wind 5.32 meters per second</Grid>*/}
-            {/*        <Grid item>12:00 4°C Wind 4.68 meters per second</Grid>*/}
-            {/*        <Grid item>00:00 6°C Wind 5.75 meters per second</Grid>*/}
-            {/*        <Grid item>06:00 5°C Wind 5.32 meters per second</Grid>*/}
-            {/*    <Grid item>00:00 6°C Wind 5.75 meters per second</Grid>*/}
-            {/*    <Grid item>06:00 5°C Wind 5.32 meters per second</Grid>*/}
-            {/*    <Grid item>12:00 4°C Wind 4.68 meters per second</Grid>*/}
-            {/*    <Grid item>00:00 6°C Wind 5.75 meters per second</Grid>*/}
-            {/*    <Grid item>06:00 5°C Wind 5.32 meters per second</Grid>*/}
-            {/*    /!*<Grid container*!/*/}
-            {/*    /!*      // direction='column'*!/*/}
-            {/*    /!*>*!/*/}
-            {/*    /!*    <Grid item>Tomorrow</Grid>*!/*/}
-            {/*    /!*    <Grid item>November, 29</Grid>*!/*/}
-
-
-
-            {/*    /!*</Grid>*!/*/}
-            {/*</Grid>*/}
-
 
             {(props.forecastPeriod < 7) ?
                 <Grid item xs={8}>

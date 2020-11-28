@@ -1,4 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useStatem} from 'react';
+import { useHistory } from "react-router-dom";
+
 import {useSelector, useDispatch} from "react-redux";
 import {setCurrentCity, deleteCity} from "../redux/actions/citiesActions";
 import {getWeather} from "../redux/appThunk";
@@ -20,13 +22,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SavedCities() {
+    let history = useHistory();
     const classes = useStyles();
     const cities = useSelector(store => store.cities.savedCities);
     const dispatch = useDispatch();
 
     const handleClick = (city) => {
         dispatch(setCurrentCity(city));
-        dispatch(getWeather(city.location))
+        dispatch(getWeather(city.location));
+        history.push(`/${city.city}`)
     }
 
     const handleDelete = (city) => {
@@ -37,9 +41,9 @@ export default function SavedCities() {
     const svCities = cities.map((city, index) => {
         return (
             <Grid item key={index + 100}>
-                <Button className={classes.button}
-                        onClick={() => handleClick(city)}
-                >{city.city}</Button>
+                        <Button className={classes.button}
+                                onClick={() => handleClick(city)}
+                        >{city.city}</Button>
                 <IconButton size="small" aria-label="delete" onClick={() => handleDelete(city)}>
                     <HighlightOffIcon style={{fontSize: 13}}/>
                 </IconButton>

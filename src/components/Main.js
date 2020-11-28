@@ -25,15 +25,13 @@ export default function Main(props) {
     const weather = useSelector(store => store.weather);
     const savedCities = useSelector(store => store.cities.savedCities)
 
-    console.log('weather in main', weather)
-
     const Weather = (weather.hasFetched) ? (<Grid item>
             <CardContent>
                 <Typography align='center'
                             variant='h5'>{Math.floor(weather.weather.current.temp - 273.15, 1)} °C</Typography>
                 <Typography align='center'
                             variant='h4'>{props.actualLocation.city}, {props.actualLocation.countryCode}</Typography>
-                <Typography align='center' variant='h6'>Wind {weather.weather.current.wind_speed} meters per
+                <Typography align='center' variant='h6'>{weather.weather.current.weather[0].description}, Wind {weather.weather.current.wind_speed} meters per
                     second</Typography>
             </CardContent>
         </Grid>)

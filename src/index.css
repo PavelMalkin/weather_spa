@@ -11,3 +11,73 @@
 /*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
 /*    monospace;*/
 /*}*/
+
+.Wizard_home {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.Wizard_home * {
+    margin: 2px 0px;
+}
+
+.Wizard_DetailedWeather,
+.Wizard_DetailedWeather_Current {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.Wizard_DetailedWeather {
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+
+}
+
+.Wizard_DetailedWeather_week {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.Wizard_DetailedWeather_hourlyForecast_item
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+
+.Wizard_DetailedWeather_hourlyForecast_item p {
+    margin: 5px 5px;
+}
+
+.Wizard_DetailedWeather_hourlyForecast {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.ForecastCard {
+    margin: 10px;
+}
+
+/* Solid border */
+hr.solid {
+    border-top: 1px solid #2B2828;
+
+}
+
+.delimiter {
+    align-self: normal;
+}
+
+h6, span {
+    text-transform: capitalize;
+}

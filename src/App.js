@@ -1,6 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {BrowserRouter as Router, Switch, Route, Link, useHistory} from "react-router-dom";
+import {Home} from './components/main/Home'
+
 import {useSelector, useDispatch} from "react-redux";
-import {getForecast, getCurrentWeatherByCoord, getWeather} from './redux/appThunk'
+import {getCurrentWeatherByCoord, getWeather} from './redux/appThunk'
 import Navbar from './components/Navbar'
 import SavedCities from "./components/SavedCities";
 import Main from "./components/Main";
@@ -8,6 +11,7 @@ import {Forecast} from "./components/Forecast";
 import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from "@material-ui/core";
 import {saveCity} from "./redux/actions/citiesActions";
+import {DetailedWeather} from "./components/main/DetailedWeather";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
     const location = useSelector(store => store.location);
     const weather = useSelector(store => store.weather)
     const savedCities = useSelector(store => store.cities)
@@ -48,7 +53,6 @@ function App() {
     }, [location]);
 
     useEffect(() => {
-            console.log('localstorage', savedCities.savedCities)
             if (localStorage.getItem('savedCities') && !savedCities.hasFetched) {
                 dispatch(saveCity(JSON.parse(localStorage.getItem('savedCities'))))
             } else {
@@ -57,102 +61,57 @@ function App() {
         },
         [savedCities])
 
-    // useEffect(()=>{
-    //     if (position, window.google) {
-    //
-    //         let city;
-    //         let Geocoder;
-    //
-    //         function initialize() {
-    //             Geocoder = new window.google.maps.Geocoder();
-    //         }
-    //
-    //
-    //         function codeLatLng(lat, lng) {
-    //             // var latlng = new window.google.maps.LatLng(lat, lng);
-    //             Geocoder.geoco
-    //             // geocoder.geocode({'latLng': latlng}, (results, status) => {
-    //             //     if (status == window.google.maps.GeocoderStatus.OK) {
-    //             //         console.log(results)
-    //             //         if (results[1]) {
-    //             //             //formatted address
-    //             //             alert(results[0].formatted_address)
-    //             //             //find country name
-    //             //             for (var i = 0; i < results[0].address_components.length; i++) {
-    //             //                 for (var b = 0; b < results[0].address_components[i].types.length; b++) {
-    //             //
-    //             //                     //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
-    //             //                     if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
-    //             //                         //this is the object you are looking for
-    //             //                         city = results[0].address_components[i];
-    //             //                         break;
-    //             //                     }
-    //             //                 }
-    //             //             }
-    //             //             //city data
-    //             //             alert(city.short_name + " " + city.long_name)
-    //             //
-    //             //         } else {
-    //             //             alert("No results found");
-    //             //         }
-    //             //     } else {
-    //             //         alert("Geocoder failed due to: " + status);
-    //             //     }
-    //             // });
-    //         }
-    //         codeLatLng(position.lat, position.lng)
-    //     }
-    // }, [position])
-
-    // useEffect(() => {
-    //     if ( !currentWeather.hasFetched && !currentWeather.isFetchingError && !currentWeather.isFetching && location.hasFetched) {
-    //         dispatch(getCurrentWeather(location.actualLocation))
-    //     }
-    // }, [currentWeather, location]);
-
-    // useEffect(() => {
-    //     if (!forecast.hasFetched && !forecast.isFetchingError && !forecast.isFetching && location.hasFetched) {
-    //         dispatch(getForecast(location.actualLocation))
-    //     }
-    // }, [forecast, location]);
-
-    // useEffect(() => {
-    //     if ( !currentWeather.hasFetched && !currentWeather.isFetchingError && !currentWeather.isFetching && location.hasFetched) {
-    //         dispatch(getCurrentWeather(location.actualLocation))
-    //     }
-    // }, [currentWeather, location]);
-
     useEffect(() => {
         if (!weather.hasFetched && !weather.isFetchingError && !weather.isFetching && location.hasFetched) {
             dispatch(getWeather(location.actualLocation.location))
         }
     }, [weather, location]);
 
+    const routes = (
+        <div>
+            <Switch>
+                <Route exact path="/" component={() => <Home location={location} weather={weather}/>}/>
+                {savedCities.savedCities.map(city => {
+                  return ( <Route path={`/${city.city}`} component={() => <DetailedWeather location={location} weather={weather}/>}/>)
+                })}
+            </Switch>
+        </div>
+    );
+
 
     return (
         <div className="App">
+            <Router>
+                <Grid container
+                      className={classes.root}
+                      direction='column'
+                >
 
-            <Grid container
-                  className={classes.root}
-                  direction='column'
-            >
-                <Grid item>
-                    <Navbar {...location}/>
+
+                    {/*<Grid item>*/}
+                    {/*    <Navbar {...location}/>*/}
+                    {/*</Grid>*/}
+
+                    {/*<Grid item>*/}
+                    {/*    <Main {...location}/>*/}
+                    {/*</Grid>*/}
+
+                    {/*<Grid item>*/}
+                    {/*    <Forecast {...weather} />*/}
+                    {/*</Grid>*/}
+
+                    {/*<Switch>*/}
+                    {/*    <Route exact path="/" component={Home}/>*/}
+                    {/*    <Route exact path="/about" component={About}/>*/}
+                    {/*</Switch>*/}
+                    {routes}
+
+                    <Grid item>
+                        <SavedCities/>
+                    </Grid>
+
                 </Grid>
-
-                <Grid item>
-                    <Main {...location}/>
-                </Grid>
-
-                <Grid item>
-                    <Forecast {...weather} />
-                </Grid>
-
-                <Grid item>
-                    <SavedCities/>
-                </Grid>
-
-            </Grid>
+            </Router>
         </div>
     );
 }
