@@ -1,5 +1,4 @@
 import React from 'react';
-import {Grid} from "@material-ui/core";
 import Navbar from "../Navbar";
 import Main from "../Main";
 import {Forecast} from "../Forecast";

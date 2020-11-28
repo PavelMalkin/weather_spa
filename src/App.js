@@ -1,13 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, useHistory} from "react-router-dom";
+import React, { useEffect} from 'react';
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import {Home} from './components/main/Home'
 
 import {useSelector, useDispatch} from "react-redux";
 import {getCurrentWeatherByCoord, getWeather} from './redux/appThunk'
-import Navbar from './components/Navbar'
 import SavedCities from "./components/SavedCities";
-import Main from "./components/Main";
-import {Forecast} from "./components/Forecast";
 import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from "@material-ui/core";
 import {saveCity} from "./redux/actions/citiesActions";
@@ -19,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         '& > *': {
             margin: theme.spacing(1),
-            // width: theme.spacing(16),
-            // height: theme.spacing(16),
         },
     },
 }));
@@ -29,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory();
     const location = useSelector(store => store.location);
     const weather = useSelector(store => store.weather)
     const savedCities = useSelector(store => store.cities)
@@ -72,7 +66,7 @@ function App() {
             <Switch>
                 <Route exact path="/" component={() => <Home location={location} weather={weather}/>}/>
                 {savedCities.savedCities.map(city => {
-                  return ( <Route path={`/${city.city}`} component={() => <DetailedWeather location={location} weather={weather}/>}/>)
+                  return ( <Route key={city.location.lat} path={`/${city.city}`} component={() => <DetailedWeather location={location} weather={weather}/>}/>)
                 })}
             </Switch>
         </div>
@@ -86,24 +80,6 @@ function App() {
                       className={classes.root}
                       direction='column'
                 >
-
-
-                    {/*<Grid item>*/}
-                    {/*    <Navbar {...location}/>*/}
-                    {/*</Grid>*/}
-
-                    {/*<Grid item>*/}
-                    {/*    <Main {...location}/>*/}
-                    {/*</Grid>*/}
-
-                    {/*<Grid item>*/}
-                    {/*    <Forecast {...weather} />*/}
-                    {/*</Grid>*/}
-
-                    {/*<Switch>*/}
-                    {/*    <Route exact path="/" component={Home}/>*/}
-                    {/*    <Route exact path="/about" component={About}/>*/}
-                    {/*</Switch>*/}
                     {routes}
 
                     <Grid item>
