@@ -4,9 +4,6 @@ import {fetchApi} from './request'
 
 const cors = 'https://cors-anywhere.herokuapp.com/';
 
-export const getCityName = createAsyncThunk('location/getCityName', (latLng) => {
-    return fetchApi(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
-})
 
 export const getCurrentWeatherByCoord = createAsyncThunk( "weather/getCurrentWeatherByCoord", (location) =>{
     const locArg = location[0] + '&lon=' + location[1];

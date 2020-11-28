@@ -7,6 +7,7 @@ import Main from "./components/Main";
 import {Forecast} from "./components/Forecast";
 import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from "@material-ui/core";
+import {saveCity} from "./redux/actions/citiesActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,15 +26,15 @@ function App() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const location = useSelector(store => store.location);
-    // const currentWeather = useSelector(store => store.currentWeather);
     const weather = useSelector(store => store.weather)
+    const savedCities = useSelector(store => store.cities)
 
     useEffect(() => {
         if (!location.hasFetched && !location.isFetching) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        dispatch(getCurrentWeatherByCoord([ position.coords.latitude , position.coords.longitude]));
+                        dispatch(getCurrentWeatherByCoord([position.coords.latitude, position.coords.longitude]));
                     },
                     () => {
                         console.log('location error')
@@ -45,6 +46,16 @@ function App() {
             }
         }
     }, [location]);
+
+    useEffect(() => {
+            console.log('localstorage', savedCities.savedCities)
+            if (localStorage.getItem('savedCities') && !savedCities.hasFetched) {
+                dispatch(saveCity(JSON.parse(localStorage.getItem('savedCities'))))
+            } else {
+                localStorage.setItem('savedCities', JSON.stringify(savedCities.savedCities))
+            }
+        },
+        [savedCities])
 
     // useEffect(()=>{
     //     if (position, window.google) {
@@ -112,12 +123,10 @@ function App() {
     // }, [currentWeather, location]);
 
     useEffect(() => {
-        if ( !weather.hasFetched && !weather.isFetchingError && !weather.isFetching && location.hasFetched) {
+        if (!weather.hasFetched && !weather.isFetchingError && !weather.isFetching && location.hasFetched) {
             dispatch(getWeather(location.actualLocation.location))
-            console.log('getWeather from app.js')
         }
     }, [weather, location]);
-
 
 
     return (

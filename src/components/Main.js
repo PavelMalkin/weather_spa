@@ -41,7 +41,7 @@ export default function Main(props) {
 
     const handleButton = () => {
         if (!savedCities.find(city => city.city === props.actualLocation.city)) {
-        dispatch(saveCity(props.actualLocation))
+        dispatch(saveCity([props.actualLocation]))
         }
     }
 

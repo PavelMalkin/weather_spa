@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getCityName, getCurrentWeatherByCoord, getCityCoordinatesByName} from "../appThunk";
+import {getCurrentWeatherByCoord, getCityCoordinatesByName} from "../appThunk";
 import {setCurrentCity} from "../actions/citiesActions"
 
 
