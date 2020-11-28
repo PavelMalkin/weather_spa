@@ -4,7 +4,8 @@ import {setCurrentCity} from "../redux/actions/citiesActions";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {Button} from "@material-ui/core";
-import {dropActualWeather, dropForecastWeather} from "../redux/actions/weatherActions";
+import {dropActualWeather, dropForecastWeather ,dropWeather} from "../redux/actions/weatherActions";
+import {getWeather} from "../redux/appThunk";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,8 +25,8 @@ export default function SavedCities  () {
 
     const handleClick = (city) => {
         dispatch(setCurrentCity(city));
-        dispatch(dropActualWeather());
-        dispatch(dropForecastWeather());
+        dispatch(getWeather(city.location))
+
     }
 
 

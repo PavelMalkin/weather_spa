@@ -6,11 +6,11 @@ import {saveCity} from "../actions/citiesActions";
 const initialState = {
     currentCity: '',
     savedCities: [
-        {city:'Moscow',countryCode: 'RU', location:{} },
-        {city:'Barcelona',countryCode: 'ES', location:{} },
-        {city:'Haifa',countryCode: 'IL', location:{} },
-        {city:'New York',countryCode: 'US', location:{} },
-        {city:'Podolsk',countryCode: 'RU', location:{} },
+        {city:'Moscow',countryCode: 'RU', location:{lat:55.755826, lon:37.6172999} },
+        {city:'Barcelona',countryCode: 'ES', location:{lat:41.3850639, lon:2.1734035} },
+        {city:'Haifa',countryCode: 'IL', location:{lat:32.82, lon:34.99} },
+        {city:'New York',countryCode: 'US', location:{lat:40.7127753, lon:-74.0059728} },
+        {city:'Podolsk',countryCode: 'RU', location:{lat:55.4312453, lon:37.5457647} },
     ],
 };
 

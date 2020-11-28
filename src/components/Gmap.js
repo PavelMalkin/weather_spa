@@ -8,18 +8,18 @@ import {useSelector} from "react-redux";
 
 
 export default function Gmap(props) {
-    const currentWeather = useSelector(store => store.currentWeather )
-    const [weather, setWeather] = useState({"coord": {lon: 34.99, lat: 32.82}});
+    const currentWeather = useSelector(store => store.weather )
+    const [weather, setWeather] = useState({lon: 34.99, lat: 32.82});
 
     useEffect(() => {
         if (currentWeather.hasFetched) {
-            setWeather(currentWeather.currentWeather)
+            setWeather(currentWeather.weather)
         }
     }, [currentWeather])
 
 
-    const weatherDescription = (weather.main)?  (`${Math.floor(weather.main.temp - 273.15)} °C,  ` +
-    `Wind ${weather.wind.speed} meters per second`) : null;
+    const weatherDescription = (weather.current)?  (`${Math.floor(weather.current.temp - 273.15)} °C,  ` +
+    `Wind ${weather.current.wind_speed} meters per second`) : null;
 
     const AnyReactComponent = ({text}) => (weatherDescription)? (
         <div>
@@ -35,16 +35,14 @@ export default function Gmap(props) {
         <div style={{height: '50vh', width: '100%'}}>
             <GoogleMapReact
                 defaultZoom={11}
-                center={{ lat: weather.coord.lat,
-                    lng: weather.coord.lon}}
+                center={{ lat: weather.lat,
+                    lng: weather.lon}}
             >
-
                 <AnyReactComponent
-                    lat={weather.coord.lat}
-                    lng={weather.coord.lon}
+                    lat={weather.lat}
+                    lng={weather.lon}
                     // text={props[0]}
                 />
-
 
             </GoogleMapReact>
         </div>

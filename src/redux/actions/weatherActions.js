@@ -5,3 +5,5 @@ export const setForecast = createAction("setForecast")
 export const dropActualWeather = createAction('dropActualWeather');
 
 export const dropForecastWeather = createAction('dropForecastWeather')
+
+export const dropWeather = createAction('dropWeather')

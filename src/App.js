@@ -1,16 +1,17 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getCurrentLocation, getCurrentWeather, getForecast, getCityName, getCurrentWeatherByCoord} from './redux/appThunk'
+import {getForecast, getCurrentWeatherByCoord, getWeather} from './redux/appThunk'
 import Navbar from './components/Navbar'
 import SavedCities from "./components/SavedCities";
 import Main from "./components/Main";
 import {Forecast} from "./components/Forecast";
 import {makeStyles} from '@material-ui/core/styles';
+import {Grid} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // display: 'flex',
-        // flexWrap: 'wrap',
+        display: 'flex',
+        flexWrap: 'wrap',
         '& > *': {
             margin: theme.spacing(1),
             // width: theme.spacing(16),
@@ -24,29 +25,8 @@ function App() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const location = useSelector(store => store.location);
-    const currentWeather = useSelector(store => store.currentWeather);
-    const forecast = useSelector(store => store.forecast);
-
-    // const getLocation = useCallback(()=> {
-    //     if (!location.hasFetched && !location.isFetching) {
-    //         if (navigator.geolocation) {
-    //             navigator.geolocation.getCurrentPosition(
-    //                 (position) => {
-    //                     console.log('request from callback')
-    //                     dispatch(getCurrentWeatherByCoord([position.coords.latitude, position.coords.longitude]));
-    //                     // dispatch(getCityName([ position.coords.latitude , position.coords.longitude]))
-    //                 },
-    //                 () => {
-    //                     console.log('location error')
-    //                 }
-    //             );
-    //         } else {
-    //             // Browser doesn't support Geolocation
-    //             console.log('Browser doesnt support Geolocation')
-    //         }
-    //     }
-    // },[location])
-    // getLocation();
+    // const currentWeather = useSelector(store => store.currentWeather);
+    const weather = useSelector(store => store.weather)
 
     useEffect(() => {
         if (!location.hasFetched && !location.isFetching) {
@@ -113,28 +93,57 @@ function App() {
     //     }
     // }, [position])
 
-    useEffect(() => {
-        if ( !currentWeather.hasFetched && !currentWeather.isFetchingError && !currentWeather.isFetching && location.hasFetched) {
-            dispatch(getCurrentWeather(location.actualLocation))
-        }
-    }, [currentWeather, location]);
+    // useEffect(() => {
+    //     if ( !currentWeather.hasFetched && !currentWeather.isFetchingError && !currentWeather.isFetching && location.hasFetched) {
+    //         dispatch(getCurrentWeather(location.actualLocation))
+    //     }
+    // }, [currentWeather, location]);
+
+    // useEffect(() => {
+    //     if (!forecast.hasFetched && !forecast.isFetchingError && !forecast.isFetching && location.hasFetched) {
+    //         dispatch(getForecast(location.actualLocation))
+    //     }
+    // }, [forecast, location]);
+
+    // useEffect(() => {
+    //     if ( !currentWeather.hasFetched && !currentWeather.isFetchingError && !currentWeather.isFetching && location.hasFetched) {
+    //         dispatch(getCurrentWeather(location.actualLocation))
+    //     }
+    // }, [currentWeather, location]);
 
     useEffect(() => {
-        if (!forecast.hasFetched && !forecast.isFetchingError && !forecast.isFetching && location.hasFetched) {
-            dispatch(getForecast(location.actualLocation))
+        if ( !weather.hasFetched && !weather.isFetchingError && !weather.isFetching && location.hasFetched) {
+            dispatch(getWeather(location.actualLocation.location))
+            console.log('getWeather from app.js')
         }
-    }, [forecast, location]);
+    }, [weather, location]);
 
 
 
     return (
         <div className="App">
-            <div className={classes.root}>
-                <Navbar {...location}/>
-                <Main {...location}/>
-                <Forecast {...forecast} />
-                <SavedCities/>
-            </div>
+
+            <Grid container
+                  className={classes.root}
+                  direction='column'
+            >
+                <Grid item>
+                    <Navbar {...location}/>
+                </Grid>
+
+                <Grid item>
+                    <Main {...location}/>
+                </Grid>
+
+                <Grid item>
+                    <Forecast {...weather} />
+                </Grid>
+
+                <Grid item>
+                    <SavedCities/>
+                </Grid>
+
+            </Grid>
         </div>
     );
 }

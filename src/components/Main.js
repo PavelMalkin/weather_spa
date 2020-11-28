@@ -22,16 +22,18 @@ const useStyles = makeStyles((theme) => ({
 export default function Main(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const weather = useSelector(store => store.currentWeather);
+    const weather = useSelector(store => store.weather);
     const savedCities = useSelector(store => store.cities.savedCities)
+
+    console.log('weather in main', weather)
 
     const Weather = (weather.hasFetched) ? (<Grid item>
             <CardContent>
                 <Typography align='center'
-                            variant='h5'>{Math.floor(weather.currentWeather.main.temp - 273.15, 1)} C</Typography>
+                            variant='h5'>{Math.floor(weather.weather.current.temp - 273.15, 1)} °C</Typography>
                 <Typography align='center'
-                            variant='h4'>{weather.currentWeather.name}, {weather.currentWeather.sys.country}</Typography>
-                <Typography align='center' variant='h6'>Wind {weather.currentWeather.wind.speed} meters per
+                            variant='h4'>{props.actualLocation.city}, {props.actualLocation.countryCode}</Typography>
+                <Typography align='center' variant='h6'>Wind {weather.weather.current.wind_speed} meters per
                     second</Typography>
             </CardContent>
         </Grid>)

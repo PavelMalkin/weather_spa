@@ -51,7 +51,10 @@ const locationReducer = createReducer(initialState, {
         state.actualLocation = {
             city: action.payload.results[0].address_components[0].long_name,
             countryCode: action.payload.results[0].address_components.find(addr => addr.types.some( type => type === "country")).short_name,
-            location: action.payload.results[0].geometry.location
+            location: {
+                lat: action.payload.results[0].geometry.location.lat,
+                lon: action.payload.results[0].geometry.location.lng
+            }
         }
         return state;
     },
