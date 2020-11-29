@@ -1,18 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Gmap from "./Gmap";
 import Moment from 'moment';
-import {CardContent, Grid, Typography} from "@material-ui/core";
-import {makeStyles} from '@material-ui/core/styles';
+import {Grid, Typography} from "@material-ui/core";
 import {ForecastCard} from "./elementary/ForecastCard";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-}));
-
 export function Forecast(props) {
-    const classes = useStyles();
 
     const forecastItems = (props.hasFetched) ? (
         props.weather.daily.map((day, index) => <ForecastCard key={index + 10000} {...day}/>)
@@ -24,22 +16,21 @@ export function Forecast(props) {
             if (Moment.unix(forecast.dt).format('DD') === Moment().add(props.forecastPeriod - 1, 'days').format('DD') &&
                 Moment.unix(forecast.dt).format('HH') % 6 === 0) {
                 return (
-                    <Grid item key={forecast.dt}>
-                        <Typography>
-                            {Moment.unix(forecast.dt).format('HH:mm ')}
-                            {Math.floor(forecast.temp - 273.15, 1)}°C
-                            Wind {forecast.wind_speed} meters per second
-                        </Typography>
-                    </Grid>
+                    <div key={forecast.dt} className='Wizard_DetailedWeather_hourlyForecast_item'>
+                        <Typography> {Moment.unix(forecast.dt).format('HH:mm ')} </Typography>
+                        <Typography> {Math.floor(forecast.temp - 273.15, 1)}°C,</Typography>
+                        <Typography>  {forecast.weather[0].description},</Typography>
+                        <Typography> Wind - {forecast.wind_speed} m/s</Typography>
+                    </div>
                 )
             }
         })
     ) : null;
 
     const typeForecast = (props.hasFetched && props.forecastPeriod < 7) ? (
-        <Grid item>
-            <Grid item>
-                <Typography>
+        <div className='Wizard_Forecast_hourly'>
+            <div className='Wizard_DetailedWeather_hourlyForecast_item'>
+                <Typography variant='h5'>
                     {Moment().add(props.forecastPeriod - 1, 'days').calendar(null, {
                         sameDay: '[Today]',
                         nextDay: '[Tomorrow]',
@@ -47,41 +38,38 @@ export function Forecast(props) {
                         sameElse: 'L'
                     })}
                 </Typography>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className='Wizard_DetailedWeather_hourlyForecast_item'>
                 <Typography>
                     {Moment().add(props.forecastPeriod - 1, 'days').format('MMMM, DD')}
                 </Typography>
-            </Grid>
-            <Grid item>
-                <Typography>
-                    Time Weather
-                </Typography>
-            </Grid>
+            </div>
+            <div className='Wizard_DetailedWeather_hourlyForecast_item'>
+                <Typography>Time</Typography>
+                <Typography>Weather</Typography>
+            </div>
             <div className='delimiter'>
                 <hr className="solid"/>
             </div>
             {forecastHours}
-        </Grid>
+        </div>
     ) : (
-        <Grid item>
-            <Grid container spacing={2} justify="flex-start">
+        <div>
+            <div className='Wizard_DetailedWeather_week'>
                 {(props.forecastPeriod < 7) ? null : forecastItems}
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     );
 
     return (
-        <Grid container spacing={2}
-              justify="space-between"
-        >
+        <div className='wizard_forecast'>
             {typeForecast}
 
             {(props.forecastPeriod < 7) ?
-                <Grid item xs={8}>
+                <div className='map_container'>
                     <Gmap {...props.actualLocation}/>
-                </Grid>
+                </div>
                 : null}
-        </Grid>
+        </div>
     );
 }

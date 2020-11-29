@@ -19,7 +19,7 @@
 }
 
 .Wizard_home * {
-    margin: 2px 0px;
+    margin: 2px 0;
 }
 
 .Wizard_DetailedWeather,
@@ -38,6 +38,13 @@
 
 }
 
+.wizard_forecast {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
 .Wizard_DetailedWeather_week {
     display: flex;
     flex-wrap: wrap;
@@ -52,7 +59,6 @@
 }
 
 
-
 .Wizard_DetailedWeather_hourlyForecast_item p {
     margin: 5px 5px;
 }
@@ -64,14 +70,22 @@
     align-items: flex-start;
 }
 
+.map_container {
+    min-width: 70%;
+    /*width: 100%;*/
+    min-height: 25vh;
+}
+
 .ForecastCard {
     margin: 10px;
+}
+.Wizard_Forecast_hourly {
+    /*min-width: 15vw;*/
 }
 
 /* Solid border */
 hr.solid {
     border-top: 1px solid #2B2828;
-
 }
 
 .delimiter {

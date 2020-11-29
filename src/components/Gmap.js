@@ -32,7 +32,6 @@ export default function Gmap(props) {
 
 
     return (
-        <div style={{height: '50vh', width: '100%'}}>
             <GoogleMapReact
                 defaultZoom={11}
                 center={{ lat: weather.lat,
@@ -45,6 +44,5 @@ export default function Gmap(props) {
                 />
 
             </GoogleMapReact>
-        </div>
     );
 }

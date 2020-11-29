@@ -1,10 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {fetchApi} from './request'
 
-
-const cors = 'https://cors-anywhere.herokuapp.com/';
-
-
 export const getCurrentWeatherByCoord = createAsyncThunk( "weather/getCurrentWeatherByCoord", (location) =>{
     const locArg = location[0] + '&lon=' + location[1];
     return fetchApi(`http://api.openweathermap.org/data/2.5/find?lat=${locArg}&cnt=3&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)

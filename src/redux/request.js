@@ -4,7 +4,6 @@ export const fetchApi = (url, method, body) => {
         body: JSON.stringify(body) || null,
     })
         .then(response => {
-            console.log(response)
             if (!response.ok) throw Error(response.statusText);
             return response.json();
         })
