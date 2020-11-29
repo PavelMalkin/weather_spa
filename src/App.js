@@ -4,7 +4,7 @@ import {Home} from './components/main/Home'
 
 import {useSelector, useDispatch} from "react-redux";
 import {getCurrentWeatherByCoord, getWeather} from './redux/appThunk'
-import SavedCities from "./components/SavedCities";
+import SavedCities from "./components/basic/SavedCities";
 import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from "@material-ui/core";
 import {saveCity} from "./redux/actions/citiesActions";

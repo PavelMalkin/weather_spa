@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from "../Navbar";
-import Main from "../Main";
-import {Forecast} from "../Forecast";
+import Navbar from "../basic/Navbar";
+import Main from "../basic/Main";
+import {Forecast} from "../basic/Forecast";
 
 
 export function Home(props) {

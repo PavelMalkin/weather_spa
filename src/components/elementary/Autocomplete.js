@@ -1,6 +1,5 @@
 import React, {useState,useEffect, useRef, useMemo} from 'react';
 import {useDispatch} from "react-redux";
-import {setCurrentCity} from "../redux/actions/citiesActions";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -9,8 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle';
-import {dropForecastWeather, dropActualWeather, dropWeather} from "../redux/actions/weatherActions";
-import {getCityCoordinatesByName} from '../redux/appThunk'
+import {dropWeather} from "../../redux/actions/weatherActions";
+import {getCityCoordinatesByName} from '../../redux/appThunk'
 
 function loadScript(src, position, id) {
     if (!position) {

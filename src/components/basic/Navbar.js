@@ -1,18 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch} from "react-redux";
-import Autocomplete from './Autocomplete';
-import {getCurrentWeather} from "../redux/appThunk";
-import {setForecast} from "../redux/actions/weatherActions";
+import Autocomplete from '../elementary/Autocomplete';
+import {setForecast} from "../../redux/actions/weatherActions";
+
+// Material
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import {fade, makeStyles} from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import Button from "@material-ui/core/Button";
-import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,15 +66,9 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchAppBar(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [City, setCity] = useState('')
-
 
     const handleButtonClick = (cnt) => {
         dispatch(setForecast(cnt))
-    }
-
-    const handleChange = (e) => {
-        setCity(e.target.value)
     }
 
     return (
@@ -87,17 +77,12 @@ export default function SearchAppBar(props) {
                     color="inherit"
             >
                 <Toolbar>
-                    <div className={classes.menuButton}
-                         edge="start"
-                    >
+                    <div className={classes.menuButton}>
                         <Button color="inherit" onClick={() => handleButtonClick(1)}>Today</Button>
-                        <Button color="inherit"  onClick={() => handleButtonClick(2)}>Tomorrow</Button>
-                        <Button color="inherit"  onClick={() => handleButtonClick(7)}>Week</Button>
+                        <Button color="inherit" onClick={() => handleButtonClick(2)}>Tomorrow</Button>
+                        <Button color="inherit" onClick={() => handleButtonClick(7)}>Week</Button>
                     </div>
-                    <Typography className={classes.title} variant="h6" noWrap>
-
-                    </Typography>
-
+                    <Typography className={classes.title} variant="h6" noWrap> </Typography>
                     <div className={classes.search}>
                         <Autocomplete/>
                     </div>

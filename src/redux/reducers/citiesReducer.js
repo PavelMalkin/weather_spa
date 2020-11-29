@@ -3,7 +3,6 @@ import {saveCity, deleteCity} from "../actions/citiesActions";
 
 
 const initialState = {
-    currentCity: '',
     savedCities: [],
     hasFetched: false,
 };

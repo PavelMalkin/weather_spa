@@ -1,8 +1,8 @@
 import React from 'react';
-import Gmap from "./Gmap";
+import Gmap from "../elementary/Gmap";
 import Moment from 'moment';
-import {Grid, Typography} from "@material-ui/core";
-import {ForecastCard} from "./elementary/ForecastCard";
+import {Typography} from "@material-ui/core";
+import {ForecastCard} from "../elementary/ForecastCard";
 
 export function Forecast(props) {
 

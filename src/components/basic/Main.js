@@ -1,26 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getCurrentWeather} from "../redux/appThunk"
-import {saveCity} from "../redux/actions/citiesActions";
-import {makeStyles} from '@material-ui/core/styles';
+import {saveCity} from "../../redux/actions/citiesActions";
+// Material
 import Paper from '@material-ui/core/Paper';
 import {CardContent, Grid, IconButton, Typography} from "@material-ui/core";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > *': {
-            margin: theme.spacing(1),
-            width: theme.spacing(16),
-            height: theme.spacing(16),
-        },
-    },
-}));
 
 export default function Main(props) {
-    const classes = useStyles();
     const dispatch = useDispatch();
     const weather = useSelector(store => store.weather);
     const savedCities = useSelector(store => store.cities.savedCities)
