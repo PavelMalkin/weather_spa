@@ -14,7 +14,6 @@ const citiesReducer = createReducer(initialState, {
         return state;
     },
     [deleteCity]: (state, action) => {
-        console.log('delete reducer', action.payload)
         state.savedCities.forEach( (city, index) => {
             if (city.city === action.payload.city) {
                 state.savedCities.splice(index, 1)
