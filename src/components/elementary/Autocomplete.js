@@ -4,6 +4,8 @@ import {getCityCoordinatesByName} from '../../redux/appThunk'
 import {dropWeather} from "../../redux/actions/weatherActions";
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
+import {v4 as uuidv4} from 'uuid';
+
 // Material
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -143,11 +145,11 @@ export default function GoogleMaps() {
                             <LocationOnIcon className={classes.icon}/>
                         </Grid>
                         <Grid item xs>
-                            {parts.map((part, index) => (
-                                <span key={index} style={{fontWeight: part.highlight ? 700 : 400}}>
-                  {part.text}
-                </span>
-                            ))}
+                            {parts.map(part =>
+                                <span key={uuidv4()} style={{fontWeight: part.highlight ? 700 : 400}}>
+                                         {part.text}
+                                           </span>
+                            )}
 
                             <Typography variant="body2" color="textSecondary">
                                 {option.structured_formatting.secondary_text}

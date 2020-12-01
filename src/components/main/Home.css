@@ -1,0 +1,9 @@
+.Wizard_home {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.Wizard_home > div {
+    margin: 4px 0;
+}

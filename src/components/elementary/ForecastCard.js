@@ -1,6 +1,8 @@
 import React from 'react';
 import Moment from "moment";
 
+import './ForecastCard.css'
+
 import {CardContent, Grid, Typography} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 

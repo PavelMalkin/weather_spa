@@ -1,5 +1,6 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 import {useDispatch} from "react-redux";
 import {setCurrentCity, deleteCity} from "../../redux/actions/citiesActions";
@@ -38,7 +39,7 @@ export default function SavedCities(props) {
 
     const svCities = props.savedCities.map((city, index) => {
         return (
-            <div key={index + 100}>
+            <div key={uuidv4()}>
                 <Button className={classes.button}
                         onClick={() => handleClick(city)}
                 >{city.city}</Button>

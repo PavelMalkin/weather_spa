@@ -20,8 +20,6 @@
     margin: 5px 5px;
 }
 
-
-
 .Wizard_DetailedWeather_week {
     display: flex;
     flex-wrap: wrap;
@@ -29,7 +27,6 @@
     align-items: center;
     min-height: 35vh;
 }
-
 
 .Wizard_DetailedWeather_hourlyForecast {
     display: flex;
