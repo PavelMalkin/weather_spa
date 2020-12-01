@@ -1,14 +1,17 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
 
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setCurrentCity, deleteCity} from "../../redux/actions/citiesActions";
 import {getWeather} from "../../redux/appThunk";
 
+import './SavedCities.css'
+
 // Material
 import {makeStyles} from '@material-ui/core/styles';
-import {Button, IconButton} from "@material-ui/core";
+import {Button, IconButton, Typography} from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -18,10 +21,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SavedCities() {
+export default function SavedCities(props) {
     let history = useHistory();
     const classes = useStyles();
-    const cities = useSelector(store => store.cities.savedCities);
     const dispatch = useDispatch();
 
     const handleClick = (city) => {
@@ -34,8 +36,7 @@ export default function SavedCities() {
         dispatch(deleteCity(city))
     }
 
-
-    const svCities = cities.map((city, index) => {
+    const svCities = props.savedCities.map((city, index) => {
         return (
             <div key={index + 100}>
                 <Button className={classes.button}
@@ -49,9 +50,13 @@ export default function SavedCities() {
     })
 
     return (
-        <div className='Wizard_SavedCities'>
-            {svCities}
-        </div>
+        <Paper elevation={3} className='Wizard_SavedCities_Container'>
+            <Typography>Saved cities</Typography>
+            <div className='Wizard_SavedCities'>
+                {svCities}
+            </div>
+        </Paper>
+
     );
 };
 

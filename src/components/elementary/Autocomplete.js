@@ -1,15 +1,17 @@
-import React, {useState,useEffect, useRef, useMemo} from 'react';
+import React, {useState, useEffect, useRef, useMemo} from 'react';
 import {useDispatch} from "react-redux";
+import {getCityCoordinatesByName} from '../../redux/appThunk'
+import {dropWeather} from "../../redux/actions/weatherActions";
+import throttle from 'lodash/throttle';
+import parse from 'autosuggest-highlight/parse';
+// Material
+import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import parse from 'autosuggest-highlight/parse';
-import throttle from 'lodash/throttle';
-import {dropWeather} from "../../redux/actions/weatherActions";
-import {getCityCoordinatesByName} from '../../redux/appThunk'
+
 
 function loadScript(src, position, id) {
     if (!position) {
@@ -23,7 +25,7 @@ function loadScript(src, position, id) {
     position.appendChild(script);
 }
 
-const autocompleteService = { current: null };
+const autocompleteService = {current: null};
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -60,13 +62,13 @@ export default function GoogleMaps() {
         [],
     );
 
-    useEffect(()=> {
+    useEffect(() => {
         if (value) {
             dispatch(getCityCoordinatesByName(value.description));
             dispatch(dropWeather());
             setValue('');
         }
-    },[value])
+    }, [value])
 
     useEffect(() => {
         let active = true;
@@ -83,9 +85,9 @@ export default function GoogleMaps() {
             return undefined;
         }
 
-        fetch({ input: inputValue }, (results) => {
+        fetch({input: inputValue}, (results) => {
             if (results != null) {
-            results = results.filter( result => result.types.some(type => type ==="locality"))
+                results = results.filter(result => result.types.some(type => type === "locality"))
             }
             if (active) {
                 let newOptions = [];
@@ -110,8 +112,8 @@ export default function GoogleMaps() {
     return (
         <Autocomplete
             id="google-map-demo"
-            style={{ width: 300 }}
-            getOptionLabel={(option) => typeof option === 'string' ? option : option.description }
+            style={{width: 300}}
+            getOptionLabel={(option) => typeof option === 'string' ? option : option.description}
             filterOptions={(x) => x}
             options={options}
             autoComplete
@@ -126,7 +128,7 @@ export default function GoogleMaps() {
                 setInputValue(newInputValue);
             }}
             renderInput={(params) => (
-                <TextField {...params} label="Find city…" variant="outlined" fullWidth />
+                <TextField {...params} label="Find city…" variant="outlined" fullWidth/>
             )}
             renderOption={(option) => {
                 const matches = option.structured_formatting.main_text_matched_substrings;
@@ -138,11 +140,11 @@ export default function GoogleMaps() {
                 return (
                     <Grid container alignItems="center">
                         <Grid item>
-                            <LocationOnIcon className={classes.icon} />
+                            <LocationOnIcon className={classes.icon}/>
                         </Grid>
                         <Grid item xs>
                             {parts.map((part, index) => (
-                                <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+                                <span key={index} style={{fontWeight: part.highlight ? 700 : 400}}>
                   {part.text}
                 </span>
                             ))}

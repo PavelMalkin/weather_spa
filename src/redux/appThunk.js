@@ -3,7 +3,7 @@ import {fetchApi} from './request'
 
 export const getCurrentWeatherByCoord = createAsyncThunk( "weather/getCurrentWeatherByCoord", (location) =>{
     const locArg = location[0] + '&lon=' + location[1];
-    return fetchApi(`http://api.openweathermap.org/data/2.5/find?lat=${locArg}&cnt=3&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
+    return fetchApi(`https://api.openweathermap.org/data/2.5/find?lat=${locArg}&cnt=3&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
 })
 
 export const getCityCoordinatesByName = createAsyncThunk('location/getCityCoordinatesByName', (city) => {

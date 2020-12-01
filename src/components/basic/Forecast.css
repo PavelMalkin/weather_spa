@@ -1,0 +1,40 @@
+.Wizard_Forecast_Container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.Wizard_Forecast_hourly {
+    padding: 0 10px;
+    min-height: 35vh;
+}
+
+.Wizard_DetailedWeather_hourlyForecast_item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+.Wizard_DetailedWeather_hourlyForecast_item p {
+    margin: 5px 5px;
+}
+
+
+
+.Wizard_DetailedWeather_week {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 35vh;
+}
+
+
+.Wizard_DetailedWeather_hourlyForecast {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+}
+

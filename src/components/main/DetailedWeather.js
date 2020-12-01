@@ -11,7 +11,7 @@ export function DetailedWeather(props) {
     const history = useHistory();
 
     return (
-        <div><Button onClick={() => history.push('/')}>Back</Button>
+        <div><Button variant='outlined' onClick={() => history.push('/')}>Back</Button>
             <div className='Wizard_DetailedWeather'>
                 {(props.weather.hasFetched) ? (
                     <div className='Wizard_DetailedWeather_Current'>

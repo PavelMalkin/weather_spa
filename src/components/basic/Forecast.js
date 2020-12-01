@@ -1,31 +1,33 @@
-import React from 'react';
+import React, {useMemo} from 'react';
+import './Forecast.css'
 import Gmap from "../elementary/Gmap";
-import Moment from 'moment';
-import {Typography} from "@material-ui/core";
 import {ForecastCard} from "../elementary/ForecastCard";
 
+import Moment from 'moment';
+
+import {Typography} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import {ForecastLine} from "../elementary/ForecastLine";
+import {useSelector} from "react-redux";
+
 export function Forecast(props) {
+    const currentWeather = useSelector(store => store.weather )
 
-    const forecastItems = (props.hasFetched) ? (
-        props.weather.daily.map((day, index) => <ForecastCard key={index + 10000} {...day}/>)
+    const forecastItems = useMemo(() => {
+        return (props.hasFetched) ? (
+        props.weather.daily.map(day => <ForecastCard key={day.dt} {...day}/>)
     ) : null;
+    },[props.weather.daily, props.hasFetched])
 
+    const forecastHours = props.weather.hourly.map(forecast => {
+            return (Moment.unix(forecast.dt).format('DD') === Moment().add(props.forecastPeriod - 1, 'days').format('DD') &&
+                Moment.unix(forecast.dt).format('HH') % 6 === 0)?
+                <ForecastLine key={forecast.dt} {...forecast}/> : null
+        });
 
-    let forecastHours = (props.hasFetched && props.forecastPeriod < 7) ? (
-        props.weather.hourly.map(forecast => {
-            if (Moment.unix(forecast.dt).format('DD') === Moment().add(props.forecastPeriod - 1, 'days').format('DD') &&
-                Moment.unix(forecast.dt).format('HH') % 6 === 0) {
-                return (
-                    <div key={forecast.dt} className='Wizard_DetailedWeather_hourlyForecast_item'>
-                        <Typography> {Moment.unix(forecast.dt).format('HH:mm ')} </Typography>
-                        <Typography> {Math.floor(forecast.temp - 273.15, 1)}°C,</Typography>
-                        <Typography>  {forecast.weather[0].description},</Typography>
-                        <Typography> Wind - {forecast.wind_speed} m/s</Typography>
-                    </div>
-                )
-            }
-        })
-    ) : null;
+    const gMap = useMemo(()=>{
+        return props.forecastPeriod < 7 ?<Gmap {...props.actualLocation}/> : null
+    },[props.forecastPeriod, props.actualLocation, currentWeather])
 
     const typeForecast = (props.hasFetched && props.forecastPeriod < 7) ? (
         <div className='Wizard_Forecast_hourly'>
@@ -56,20 +58,17 @@ export function Forecast(props) {
     ) : (
         <div>
             <div className='Wizard_DetailedWeather_week'>
-                {(props.forecastPeriod < 7) ? null : forecastItems}
+                {forecastItems}
             </div>
         </div>
     );
 
     return (
-        <div className='wizard_forecast'>
-            {typeForecast}
-
-            {(props.forecastPeriod < 7) ?
-                <div className='map_container'>
-                    <Gmap {...props.actualLocation}/>
-                </div>
-                : null}
-        </div>
+        <Paper elevation={3}>
+            <div className='Wizard_Forecast_Container'>
+                {typeForecast}
+                {gMap}
+            </div>
+        </Paper>
     );
 }

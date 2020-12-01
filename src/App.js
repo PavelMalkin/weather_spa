@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import {Home} from './components/main/Home'
 
@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const location = useSelector(store => store.location);
     const weather = useSelector(store => store.weather)
     const savedCities = useSelector(store => store.cities)
+    const location = useSelector(store => store.location);
 
     useEffect(() => {
         if (!location.hasFetched && !location.isFetching) {
@@ -40,7 +40,6 @@ function App() {
                     }
                 );
             } else {
-                // Browser doesn't support Geolocation
                 console.log('Browser doesnt support Geolocation')
             }
         }
@@ -61,6 +60,8 @@ function App() {
         }
     }, [weather, location]);
 
+    const home = useMemo(()=> <Home location={location} weather={weather}/> ,[location])
+
     const routes = (
         <div>
             <Switch>
@@ -73,6 +74,9 @@ function App() {
     );
 
 
+    const cities = useMemo(() => <SavedCities {...savedCities}/>, [savedCities])
+
+
     return (
         <div className="App">
             <Router>
@@ -83,7 +87,7 @@ function App() {
                     {routes}
 
                     <Grid item>
-                        <SavedCities/>
+                        {cities}
                     </Grid>
 
                 </Grid>

@@ -83,9 +83,7 @@ export default function SearchAppBar(props) {
                         <Button color="inherit" onClick={() => handleButtonClick(7)}>Week</Button>
                     </div>
                     <Typography className={classes.title} variant="h6" noWrap> </Typography>
-                    <div className={classes.search}>
                         <Autocomplete/>
-                    </div>
                 </Toolbar>
             </AppBar>
         </div>

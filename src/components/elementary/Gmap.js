@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import './Gmap.css'
+import {useSelector} from "react-redux";
 import GoogleMapReact from 'google-map-react';
+
+
 import RoomIcon from '@material-ui/icons/Room';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
-import {useSelector} from "react-redux";
+
 
 
 
@@ -32,6 +36,7 @@ export default function Gmap(props) {
 
 
     return (
+        <div className='map_container'>
             <GoogleMapReact
                 defaultZoom={11}
                 center={{ lat: weather.lat,
@@ -40,9 +45,9 @@ export default function Gmap(props) {
                 <AnyReactComponent
                     lat={weather.lat}
                     lng={weather.lon}
-                    // text={props[0]}
                 />
 
             </GoogleMapReact>
+        </div>
     );
 }
