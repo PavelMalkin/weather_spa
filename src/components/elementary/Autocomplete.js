@@ -70,7 +70,7 @@ export default function GoogleMaps() {
             dispatch(dropWeather());
             setValue('');
         }
-    }, [value])
+    }, [dispatch, value])
 
     useEffect(() => {
         let active = true;

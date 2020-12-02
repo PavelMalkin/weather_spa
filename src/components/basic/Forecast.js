@@ -27,7 +27,7 @@ export function Forecast(props) {
 
     const gMap = useMemo(()=>{
         return weather.forecastPeriod < 7 ?<Gmap {...weather.actualLocation}/> : null
-    },[weather.forecastPeriod, weather.actualLocation, weather])
+    },[weather])
 
     const typeForecast = (weather.hasFetched && weather.forecastPeriod < 7) ? (
         <div className='Wizard_Forecast_hourly'>

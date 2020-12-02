@@ -38,16 +38,15 @@ export function DetailedWeather(props) {
                 <div className="Wizard_DetailedWeather_hourlyForecast">
                     {(weather.hasFetched) ? (
                         weather.weather.hourly.map(forecast => {
-                            if (Moment.unix(forecast.dt).format('HH') % 4 === 0) {
-                                return (
+                            return (Moment.unix(forecast.dt).format('HH') % 4 === 0)? (
                                     <div className='Wizard_DetailedWeather_hourlyForecast_item' key={forecast.dt}>
                                         <Typography> {Moment.unix(forecast.dt).format('DD MMM HH:mm ')} </Typography>
                                         <Typography>  {Math.floor(forecast.temp - 273.15, 1)}°C</Typography>
                                         <Typography> Wind {forecast.wind_speed} m/s</Typography>
                                         <Typography>  {forecast.weather[0].description}</Typography>
                                     </div>
-                                )
-                            }
+                                ) : null;
+
                         })
                     ) : null}
                 </div>

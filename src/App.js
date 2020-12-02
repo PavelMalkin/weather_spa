@@ -42,13 +42,13 @@ function App() {
                 localStorage.setItem('savedCities', JSON.stringify(savedCities.savedCities))
             }
         },
-        [savedCities])
+        [dispatch, savedCities])
 
     useEffect(() => {
         if (!weather.hasFetched && !weather.isFetchingError && !weather.isFetching && location.hasFetched) {
             dispatch(getWeather(location.actualLocation.location))
         }
-    }, [weather, location]);
+    }, [weather, location, dispatch]);
 
     const home = useMemo(() => <Home location={location}/>, [location])
 
