@@ -1,3 +1,5 @@
+
+
 /* Solid border */
 hr.solid {
     border-top: 1px solid #2B2828;
@@ -9,4 +11,16 @@ hr.solid {
 
 h6, span {
     text-transform: capitalize;
+}
+
+/*Tablets and under*/
+@media (max-width: 768px) {
+    html,body{overflow-x: hidden;}
+
+}
+
+/*Mobile*/
+@media (max-width: 500px) {
+    html,body{overflow-x: hidden;}
+
 }

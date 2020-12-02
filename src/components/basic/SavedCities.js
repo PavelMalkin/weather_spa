@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SavedCities(props) {
-    let history = useHistory();
+    const history = useHistory();
     const classes = useStyles();
     const dispatch = useDispatch();
 

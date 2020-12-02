@@ -35,3 +35,15 @@
     align-items: flex-start;
 }
 
+/*Tablets and under*/
+@media (max-width: 768px) {
+    .Wizard_Forecast_Container {
+        flex-direction: column;
+    }
+}
+
+/*Mobile*/
+@media (max-width: 500px) {
+
+
+}

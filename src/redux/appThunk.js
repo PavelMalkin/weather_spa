@@ -11,7 +11,7 @@ export const getCityCoordinatesByName = createAsyncThunk('location/getCityCoordi
 })
 
 export const getWeather = createAsyncThunk( "weather/getWeather", (location) =>{
-    let param = 'lat=' + location.lat + '&lon=' + location.lon
+    const param = 'lat=' + location.lat + '&lon=' + location.lon
     return fetchApi(`https://api.openweathermap.org/data/2.5/onecall?${param}&exclude=minutely,alerts&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
 })
 
