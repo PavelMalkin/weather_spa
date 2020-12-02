@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useCallback} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {saveCity} from "../../redux/actions/citiesActions";
 
@@ -22,21 +22,22 @@ export default function Main(props) {
     }, [weather.hasFetched, weather.weather, props.actualLocation])
 
 
-    const handleButton = () => {
-        if (!savedCities.find(city => city.city === props.actualLocation.city)) {
-            dispatch(saveCity([props.actualLocation]))
-        }
-    }
+    const handleButton = useCallback(() => {
+        dispatch(saveCity([props.actualLocation]))
+        }, [dispatch, props.actualLocation] );
 
-
+    
     return (
         <Paper elevation={3} style={{minHeight: '15vh'}}>
             <div className='MainWeather_Container'>
                 <div> </div>
                 {Weather}
-                <IconButton onClick={handleButton}>
-                    <AddCircleOutlineIcon/>
-                </IconButton>
+                <div>
+                    <IconButton onClick={handleButton}>
+                        {(!savedCities.some(city => city.city === props.actualLocation.city))?
+                            <AddCircleOutlineIcon/> : null}
+                    </IconButton>
+                </div>
             </div>
         </Paper>
     );
