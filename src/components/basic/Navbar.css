@@ -1,0 +1,30 @@
+.Navbar_Container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Navbar_Container > * {
+ padding: 10px;
+}
+
+/*Tablets and under*/
+@media (max-width: 768px) {
+    .Navbar_Buttons_Container {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .Navbar_Container {
+        justify-content: center;
+    }
+}
+
+/*Mobile*/
+@media (max-width: 500px) {
+
+}

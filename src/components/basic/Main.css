@@ -1,0 +1,9 @@
+.MainWeather_Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.MainWeather_Container > div {
+    min-width: 48px;
+}

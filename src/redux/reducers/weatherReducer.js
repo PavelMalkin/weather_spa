@@ -1,42 +1,51 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getForecast} from "../../../../travel_factory/src/redux/appThunk";
-import {setForecast, dropForecastWeather} from "../actions/weatherActions";
+import {getWeather} from "../appThunk";
+import {dropWeather , setForecast} from "../actions/weatherActions";
 
 
 const initialState = {
-    forecastWeather: {},
+    weather: {
+        current: [],
+        daily: [],
+        hourly: []
+    },
     forecastPeriod: 7,
     hasFetched: false,
     isFetching: false,
     isFetchingError: null
 };
 
-const forecastReducer = createReducer(initialState, {
-    [getForecast.pending]: (state) => {
+const weatherReducer = createReducer(initialState, {
+    [getWeather.pending]: (state) => {
         state.isFetching = true;
+        state.hasFetched = false;
         return state;
     },
-    [getForecast.rejected]: (state, action) => {
+    [getWeather.rejected]: (state, action) => {
         state.isFetching = false;
         state.error = action.error.message;
         return state;
     },
-    [getForecast.fulfilled]: (state, action) => {
+    [getWeather.fulfilled]: (state, action) => {
         state.isFetching = false;
         state.hasFetched = true;
-        state.forecastWeather =  action.payload;
+        state.weather =  action.payload;
         return state;
     },
     [setForecast] : (state, action) => {
         state.forecastPeriod = action.payload
         return state;
     },
-    [dropForecastWeather]: (state) => {
+    [dropWeather] : (state) => {
+        state.weather = {
+            current: [],
+            daily: [],
+            hourly: []
+        };
         state.isFetching = false;
         state.hasFetched = false;
-        state.forecastWeather = {};
         return state;
     }
 })
 
-export default forecastReducer;
+export default weatherReducer;

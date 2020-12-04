@@ -1,35 +1,26 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getCityName, getCurrentWeather} from "../../../../travel_factory/src/redux/appThunk";
-import {saveCity} from "../actions/citiesActions";
+import {saveCity, deleteCity} from "../actions/citiesActions";
 
 
 const initialState = {
-    currentCity: '',
-    savedCities: [['Moscow', 'RU'], ['Barcelona','ES'], ['Haifa', 'IL'], ['New York', 'US'], ['Podolsk', 'RU']],
+    savedCities: [],
+    hasFetched: false,
 };
 
 const citiesReducer = createReducer(initialState, {
-    [getCityName.pending]: (state) => {
-        state.isFetching = true;
-        return state;
-    },
-    [getCityName.rejected]: (state, action) => {
-        state.isFetching = false;
-        state.error = action.error.message;
-        return state;
-    },
-    [getCityName.fulfilled]: (state, action) => {
-        state.isFetching = false;
-        state.hasFetched = true;
-        state.currentCity =  action.payload;
-        return state;
-    },
-
     [saveCity]: (state, action) => {
-        console.log('saveCity fired')
-        state.savedCities = [...state.savedCities, ...[action.payload]]
+        state.savedCities = [...state.savedCities, ...action.payload];
+        state.hasFetched = true;
         return state;
     },
+    [deleteCity]: (state, action) => {
+        state.savedCities.forEach( (city, index) => {
+            if (city.city === action.payload.city) {
+                state.savedCities.splice(index, 1)
+            }
+        })
+        return state
+    }
 
 })
 

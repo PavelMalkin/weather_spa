@@ -1,0 +1,9 @@
+.Wizard_DetailedWeather,
+.Wizard_DetailedWeather_Current {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+}
